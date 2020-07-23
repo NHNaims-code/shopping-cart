@@ -29,7 +29,7 @@
                            <input id="item1Count" type="text" class="form-control text-center" value="1">
                            <button id="item1Plus" class="btn btn-default"><i class="fas fa-plus"></i></button>
                         </div>
-                        <h5>$1219</h5>
+                        <h5>$<span id="item1Amount">1219</span></h5>
                         <img src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
@@ -43,12 +43,12 @@
                      </div>
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default"><i class="fas fa-minus"></i></button>
-                           <input type="text" class="form-control text-center" value="1">
-                           <button class="btn btn-default"><i class="fas fa-plus"></i></button>
+                           <button id="item2Minus" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="item2Count" type="text" class="form-control text-center" value="1">
+                           <button id="item2Plus" class="btn btn-default"><i class="fas fa-plus"></i></button>
 
                         </div>
-                        <h5>$59</h5>
+                        <h5>$<span id="item2Amount">59</span></h5>
                         <img src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
@@ -64,9 +64,9 @@
                      </div>
 
                      <div class="col-md-4 status">
-                        <h5>$1,278</h5>
-                        <h5>$0</h5>
-                        <h5>$1,278</h5>
+                        <h5>$<span id="subTotal">1278</span></h5>
+                        <h5>$<span id="tax">0</span></h5>
+                        <h5>$<span id="total">1278</span></h5>
                      </div>
                   </div>
                </div>
@@ -78,18 +78,39 @@
       </div>
    </section>
    <script>
+      function stringToFloat(id){
+         const floatNumber = parseFloat(id);
+         return floatNumber;
+      }
+      function plusMinus(itemCount, itemAmount, count, price){
+         const item1CountNumber= stringToFloat(document.getElementById(itemCount).value);
+         document.getElementById(itemCount).value = item1CountNumber + count;
+         const item1AmountNumber = stringToFloat(document.getElementById(itemAmount).innerText)
+         document.getElementById(itemAmount).innerText = item1AmountNumber + price;
+
+         const subTotal = stringToFloat(document.getElementById('subTotal').innerText);
+         const total = stringToFloat(document.getElementById('total').innerText);
+         const tax = stringToFloat(document.getElementById('tax').innerText);
+
+         document.getElementById('subTotal').innerText = subTotal + price;
+         document.getElementById('total').innerText = total + tax + price;
+      }
+
+      //item 1 area
       document.getElementById('item1Plus').addEventListener('click', function(){
-         const item1Count = document.getElementById('item1Count').value;
-         const item1CountNumber = parseFloat(item1Count);
-         document.getElementById('item1Count').value = item1CountNumber + 1;
-         console.log(item1Count);
-      })
+         plusMinus('item1Count', 'item1Amount', 1, 1219);
+      });
       document.getElementById('item1Minus').addEventListener('click', function(){
-         const item1Count = document.getElementById('item1Count').value;
-         const item1CountNumber = parseFloat(item1Count);
-         document.getElementById('item1Count').value = item1CountNumber - 1;
-         console.log(item1Count);
+         plusMinus('item1Count', 'item1Amount', 1*(-1), 1219*(-1));
+      });
+      //item 2 area
+      document.getElementById('item2Plus').addEventListener('click', function(){
+         plusMinus('item2Count', 'item2Amount', 1, 59)
       })
+      document.getElementById('item2Minus').addEventListener('click', function(){
+         plusMinus('item2Count', 'item2Amount', 1*(-1), 59*(-1));
+      })
+
    </script>
 </body>
 
