@@ -85,7 +85,10 @@
          console.log(item1Count);
       })
       document.getElementById('item1Minus').addEventListener('click', function(){
-         console.log('- clicked')
+         const item1Count = document.getElementById('item1Count').value;
+         const item1CountNumber = parseFloat(item1Count);
+         document.getElementById('item1Count').value = item1CountNumber - 1;
+         console.log(item1Count);
       })
    </script>
 </body>
